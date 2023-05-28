@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+    }
+    
+    .container {
+      text-align: center;
+      margin-top: 100px;
+    }
+    
+    h1 {
+      font-size: 24px;
+      margin-bottom: 20px;
+    }
+    
+    label {
+      display: block;
+      margin-bottom: 10px;
+    }
+    
+    input[type="number"] {
+      padding: 8px;
+      font-size: 16px;
+    }
+    
+    button {
+      padding: 10px 20px;
+      font-size: 18px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+    
+    button:hover {
+      background-color: #45a049;
+    }
+    
+    .consumo {
+      font-size: 48px;
+      margin-top: 30px;
+    }
+    .bubbles {
+      position: ;
+      width: 100%;
+      height: 100%;
+    }
+    
+    .bubble {
+      position: absolute;
+      background-color: #a5f0e7;
+      border-radius: 50%;
+    }
+  </style>
+</head>
+<body>
+    <div class="bubbles"></div>
+  <div class="container">
+    <h1> Consumo de Hidrômetro</h1>
+    <label for="leituraAnterior">Leitura Anterior:</label>
+    <input type="number" id="leituraAnterior">
+    <br>
+    <label for="leituraAtual">Leitura Atual:</label>
+    <input type="number" id="leituraAtual">
+    <br>
+    <button onclick="calcularConsumo()">Calcular</button>
+    <h2 class="consumo" id="resultado"></h2>
+  </div>
+
+  <script>
+    // Função para gerar um número aleatório entre dois valores
+    function randomBetween(min, max) {
+      return Math.random() * (max - min) + min;
+    }
+    //função para criar bolhas de fudo na tela 
+
+    function createBubble() {
+      const bubble = document.createElement("div");
+      bubble.className = "bubble";
+      
+      const size = randomBetween(7, 45);
+      const left = randomBetween(0, window.innerWidth);
+      const top = randomBetween(0, window.innerHeight);
+      const duration = randomBetween(5, 10);
+      
+      bubble.style.width = size + "px";
+      bubble.style.height = size + "px";
+      bubble.style.left = left + "px";
+      bubble.style.top = top + "px";
+      bubble.style.animationDuration = duration + "s";
+      
+      document.querySelector(".bubbles").appendChild(bubble);
+      
+      setTimeout(() => {
+        bubble.remove();
+      }, duration * 1000);
+    }
+    
+    // Cria bolhas a cada 1 segundo
+    setInterval(createBubble, 1000);
+    function calcularConsumo() {
+      const leituraAnterior = parseInt(document.getElementById("leituraAnterior").value);
+      const leituraAtual = parseInt(document.getElementById("leituraAtual").value);
+      
+      const consumo = leituraAtual - leituraAnterior;
+      document.getElementById("resultado").textContent = "Consumo: " + consumo + " m³";
+    }
+  </script>
+</body>
+</html>
